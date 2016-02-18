@@ -4,11 +4,12 @@ const bodyParser = require('body-parser');
 const express = require('express');
 const mongoose = require('mongoose');
 
+const note = require('./routes/note');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const Note = require('./models/note');
-
+//use /note routes
+app.use(note);
 
 // set view engine to jade
 app.set('view engine', 'jade');
@@ -22,26 +23,6 @@ app.use(bodyParser.json());
 //home route
 app.get('/', (req, res) => {
   res.send('Server Running');
-});
-
-app.get('/notes/new', (req, res) => {
-  res.render('new-note');
-});
-
-// post new note to db and redirect to home
-app.post('/notes', (req, res) => {
-  Note.create(req.body, (err, note) => {
-    if (err) throw err;
-    res.redirect(`/notes/${note._id}`);
-  });
-});
-
-// apps with route params need to be below static routes
-app.get('/notes/:id', (req, res) => {
-  Note.findById(req.params.id, (err, note) => {
-    if (err) res.send('404');
-    res.render('show-note', {note: note});
-  });
 });
 
 //connect database then listen to server
