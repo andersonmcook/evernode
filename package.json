@@ -1,0 +1,37 @@
+{
+  "name": "evernode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "serve": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andersonmcook/evernode.git"
+  },
+  "author": "Anderson Cook <andersonmcook@gmail.com> (https://github.com/andersonmcook)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andersonmcook/evernode/issues"
+  },
+  "homepage": "https://github.com/andersonmcook/evernode#readme",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "express": "^4.13.4",
+    "mongoose": "^4.4.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.8.1"
+  },
+  "eslintConfig": {
+  "env": {
+    "mocha": true,
+    "node": true,
+    "es6": true
+  },
+  "extends": "eslint:recommended"
+  }
+}
