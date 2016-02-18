@@ -4,6 +4,10 @@ const express = require('express');
 const router = express.Router();
 const note = require('../controllers/note');
 
+// show all notes
+router.get('/notes', note.index);
+
+// new note form
 router.get('/notes/new', note.newNote);
 
 // routes with route params need to be below static routes

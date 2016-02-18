@@ -22,9 +22,18 @@ module.exports.show = (req, res) => {
   });
 };
 
+// delete note based on :id
 module.exports.destroy = (req, res) => {
   Note.findByIdAndRemove(req.params.id, (err) => {
     if (err) throw err;
     res.send('destroyed');
+  });
+};
+
+// show all notes
+module.exports.index = (req, res) => {
+  Note.find({}, (err, notes) => {
+
+    res.render('notes-index', {notes: notes});
   });
 };
