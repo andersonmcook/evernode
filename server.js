@@ -31,11 +31,19 @@ app.get('/notes/new', (req, res) => {
   res.render('new-note');
 });
 
+// post new note to db and redirect to home
 app.post('/notes', (req, res) => {
   Note.create(req.body, (err, note) => {
     if (err) throw err;
-    console.log(note);
-    res.redirect('/');
+    res.redirect(`/notes/${note._id}`);
+  });
+});
+
+// apps with route params need to be below static routes
+app.get('/notes/:id', (req, res) => {
+  Note.findById(req.params.id, (err, note) => {
+    if (err) res.send('404');
+    res.render('show-note', {note: note});
   });
 });
 
