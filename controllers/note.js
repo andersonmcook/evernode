@@ -1,55 +1,58 @@
 'use strict';
 const Note = require('../models/note');
 
-// show form for new note
-module.exports.newNote = (req, res) => {
-  res.render('new-note');
-};
+module.exports = {
 
-// create note in db and redirect
-module.exports.create = (req, res) => {
-  Note.create(req.body, (err, note) => {
-    if (err) throw err;
-    res.redirect(`/notes/${note._id}`);
-  });
-};
+  // show form for new note
+  newNote (req, res) {
+    res.render('new-note');
+  },
 
-// show note based on :id
-module.exports.show = (req, res) => {
-  Note.findById(req.params.id, (err, note) => {
-    if (err) res.send('404');
-    res.render('show-note', {note: note});
-  });
-};
+  // create note in db and redirect
+  create (req, res) {
+    Note.create(req.body, (err, note) => {
+      if (err) throw err;
+      res.redirect(`/notes/${note._id}`);
+    });
+  },
 
-// delete note based on :id
-module.exports.destroy = (req, res) => {
-  Note.findByIdAndRemove(req.params.id, (err) => {
-    if (err) throw err;
-    res.redirect('/notes');
-  });
-};
+  // show note based on :id
+  show (req, res) {
+    Note.findById(req.params.id, (err, note) => {
+      if (err) res.send('404');
+      res.render('show-note', {note: note});
+    });
+  },
 
-// show all notes
-module.exports.index = (req, res) => {
-  Note.find({}, (err, notes) => {
-    if (err) throw err;
-    res.render('notes-index', {notes: notes});
-  });
-};
+  // delete note based on :id
+  destroy (req, res) {
+    Note.findByIdAndRemove(req.params.id, (err) => {
+      if (err) throw err;
+      res.redirect('/notes');
+    });
+  },
 
-// edit note
-module.exports.edit = (req, res) => {
-  Note.findById(req.params.id, (err, note) => {
-    if (err) throw err;
-    res.render('new-note', {note: note});
-  });
-};
+  // show all notes
+  index (req, res) {
+    Note.find({}, (err, notes) => {
+      if (err) throw err;
+      res.render('notes-index', {notes: notes});
+    });
+  },
 
-// update note with edits
-module.exports.update = (req, res) => {
-  Note.findByIdAndUpdate(req.params.id, (err, note) => {
-    if (err) throw err;
-    res.redirect(`/notes/${note._id}`);
-  });
+  // edit note
+  edit (req, res) {
+    Note.findById(req.params.id, (err, note) => {
+      if (err) throw err;
+      res.render('new-note', {note: note});
+    });
+  },
+
+  // update note with edits
+  update (req, res) {
+    Note.findByIdAndUpdate(req.params.id, req.body, (err, note) => {
+      if (err) throw err;
+      res.redirect(`/notes/${note._id}`);
+    });
+  }
 };
