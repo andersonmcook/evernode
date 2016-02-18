@@ -1,10 +1,12 @@
 'use strict';
 const Note = require('../models/note');
 
+// show form for new note
 module.exports.newNote = (req, res) => {
   res.render('new-note');
 };
 
+// create note in db and redirect
 module.exports.create = (req, res) => {
   Note.create(req.body, (err, note) => {
     if (err) throw err;
@@ -12,6 +14,7 @@ module.exports.create = (req, res) => {
   });
 };
 
+// show note based on :id
 module.exports.show = (req, res) => {
   Note.findById(req.params.id, (err, note) => {
     if (err) res.send('404');
