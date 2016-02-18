@@ -2,11 +2,15 @@
 
 const bodyParser = require('body-parser');
 const express = require('express');
+const methodOverride = require('method-override');
 const mongoose = require('mongoose');
-
 const note = require('./routes/note');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+// set view engine to jade
+app.set('view engine', 'jade');
 
 // bodyParser middleware
 app.use(bodyParser.urlencoded({
@@ -15,8 +19,9 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-// set view engine to jade
-app.set('view engine', 'jade');
+// this is so we can use DELETE on a form
+app.use(methodOverride('_method'));
+
 
 //home route
 app.get('/', (req, res) => {

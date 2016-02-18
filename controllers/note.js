@@ -21,3 +21,10 @@ module.exports.show = (req, res) => {
     res.render('show-note', {note: note});
   });
 };
+
+module.exports.destroy = (req, res) => {
+  Note.findByIdAndRemove(req.params.id, (err) => {
+    if (err) throw err;
+    res.send('destroyed');
+  });
+};
