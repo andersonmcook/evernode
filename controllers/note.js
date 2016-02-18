@@ -18,10 +18,7 @@ module.exports = {
 
   // show note based on :id
   show (req, res) {
-    Note.findById(req.params.id, (err, note) => {
-      if (err) res.send('404');
-      res.render('show-note', {note: note});
-    });
+    res.render('show-note', {note: req.note});
   },
 
   // delete note based on :id
@@ -40,19 +37,16 @@ module.exports = {
     });
   },
 
-  // edit note
+  // show form for edit note
   edit (req, res) {
-    Note.findById(req.params.id, (err, note) => {
-      if (err) throw err;
-      res.render('new-note', {note: note});
-    });
+    res.render('new-note', {note: req.note});
   },
 
   // update note with edits
   update (req, res) {
-    Note.findByIdAndUpdate(req.params.id, req.body, (err, note) => {
+    req.note.update(req.body, (err, note) => {
       if (err) throw err;
-      res.redirect(`/notes/${note._id}`);
+      res.redirect(`/notes/${req.note._id}`);
     });
   }
 };
