@@ -5,7 +5,7 @@ const router = express.Router();
 const note = require('../controllers/note');
 const Note = require('../models/note');
 
-// middleware params, gets the id and passes it into req.note
+// middleware params, gets the id and puts it into req.note
 router.param('id', (req, res, next, id) => {
   Note.findById(id, (err, note) => {
     if (err) throw err;

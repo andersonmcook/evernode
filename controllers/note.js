@@ -1,4 +1,5 @@
 'use strict';
+
 const Note = require('../models/note');
 
 module.exports = {
@@ -23,7 +24,7 @@ module.exports = {
 
   // delete note based on :id
   destroy (req, res) {
-    Note.findByIdAndRemove(req.params.id, (err) => {
+    req.note.remove((err) => {
       if (err) throw err;
       res.redirect('/notes');
     });
