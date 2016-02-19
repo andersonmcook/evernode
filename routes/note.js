@@ -7,11 +7,13 @@ const Note = require('../models/note');
 
 // middleware params, gets the id and puts it into req.note
 router.param('id', (req, res, next, id) => {
-  Note.findById(id, (err, note) => {
-    if (err) throw err;
-    req.note = note;
-    next();
-  });
+  Note.findById(id)
+    .populate('category')
+    .exec((err, note) => {
+      if (err) throw err;
+      req.note = note;
+      next();
+    });
 });
 
 // show all notes
@@ -21,6 +23,7 @@ router.get('/notes', note.index);
 router.get('/notes/new', note.newNote);
 
 // routes with route params need to be below static routes
+// show note
 router.get('/notes/:id', note.show);
 
 //edit note

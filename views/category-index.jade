@@ -1,0 +1,6 @@
+h1 Categories
+
+ul
+  each category in categories
+    li: a(href='/categories/#{category._id}')= category.name
+    span= category.description

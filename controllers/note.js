@@ -1,12 +1,16 @@
 'use strict';
 
 const Note = require('../models/note');
+const Category = require('../models/category');
 
 module.exports = {
 
   // show form for new note
   newNote (req, res) {
-    res.render('new-note');
+    Category.find({}, (err, categories) => {
+      if (err) throw err;
+      res.render('new-note', {categories: categories});
+    })
   },
 
   // create note in db and redirect
@@ -40,7 +44,10 @@ module.exports = {
 
   // show form for edit note
   edit (req, res) {
-    res.render('new-note', {note: req.note});
+    Category.find({}, (err, categories) => {
+      if (err) throw err;
+      res.render('new-note', {note: req.note, categories: categories});
+    });
   },
 
   // update note with edits
