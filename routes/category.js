@@ -7,7 +7,7 @@ const Note = require('../models/note');
 const category = require('../controllers/category');
 const Category = require('../models/category');
 
-// // // middleware params, gets the id and puts it into req.category
+// middleware params, gets the id and puts it into req.category
 router.param('id', (req, res, next, id) => {
   Category.findById(id, (err, category) => {
     if (err) throw err;
