@@ -1,7 +1,6 @@
+h4= note.category.name
 h1= note.title
 p= note.text
-p= note.category.name
-p= note.category.description
 form(action='/notes/#{note._id}/edit')
   input(type='submit' value='Edit')
 form(action='/notes/#{note._id}?_method=DELETE' method='POST')
